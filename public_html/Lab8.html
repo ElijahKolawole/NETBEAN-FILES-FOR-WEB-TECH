@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+  <title>Lab8-Web Graphics::Canvas::Javascript</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Activity 11 09 2018 for GGC Web Tech">
+  <meta name="keywords" content="JavaScript, HTML, CSS, Web Design, JQuery, interactive canvas">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Elijah Kolawole">
+ <style>
+  #cars {
+        border: 2px solid black;
+        background-color: #E9CFEC;
+        margin-top: 100px;
+        margin-left: 200px;
+        
+    }
+  </style>
+  
+ 
+</head>
+<body>
+<canvas id="cars" width=800 height=600 ></canvas>
+<img id="car1" alt = "car-left" src="car-left.png" style="display:none">
+<img id="car2" alt = "car-right" src="car-right.png" style="display:none">
+<script>
+var canvas = document.getElementById("cars");
+    var ctx = canvas.getContext("2d");
+    
+    var carInitX = 300;
+    var carInitY = 360;
+    
+    var carPosX = carInitX;
+    var carPosY = carInitY;
+    var carHeight = 100;
+    var carWidth = 200;
+    
+    var carInit2X = 130;
+    var carInit2Y = 440;
+    
+    var carPos2X = carInit2X;
+    var carPos2Y = carInit2Y;
+    var car2Height = 100;
+    var car2Width = 200;
+    
+    var wheelRadius = 25;
+    var moveDirection1 = "right";
+    var moveDirection2 = "right";
+    var moveSpeed = 10;
+    
+    var canvasWidth = canvas.width;
+    var canvasHeight = canvas.height;
+    var author = "By Elijah Kolawole";
+    
+    
+     setInterval(moveCar, 100);
+     
+
+   function moveCar() {
+if(moveDirection1 === "left") {
+    if(carPosX + carWidth <= canvasWidth - moveSpeed +10) {
+    carPosX += moveSpeed;
+            
+        }
+        else {
+        carPosX = canvasWidth - carWidth;
+           
+            moveDirection1 = "right";
+           
+        }
+    }
+    else if(moveDirection1 === "right") {
+    if(carPosX >= moveSpeed) {
+    carPosX -= moveSpeed;
+           moveDirection1 = "right";
+        }
+        else {
+        carPosX = canvasWidth;
+            
+        }
+    }
+    if(moveDirection2 === "right") {
+    if(carPos2X + car2Width <= canvasWidth - moveSpeed) {
+            carPos2X += moveSpeed;
+        }
+        else {
+            carPos2X = canvasWidth - car2Width;
+            moveDirection2 = "left";
+        }
+    }
+    else if(moveDirection2 === "left") {
+    if(carPos2X <= moveSpeed) {
+            carPos2X -= moveSpeed;
+        }
+        else {            
+            carPos2X = 0 - car2Width;
+            moveDirection2 = "right";
+        }
+    }
+   
+    
+    drawSurrounding();
+    drawRoad();
+    drawCar1();
+    drawCar2();
+}
+
+    
+    function drawCar1() {
+    ctx.beginPath();
+        ctx.fillStyle = "transparent";
+        ctx.fillRect(carPosX, carPosY, carWidth, carHeight);
+        var img1 = document.getElementById("car1");
+        
+        ctx.drawImage(img1, carPosX, carPosY+ 30, carWidth, carHeight);
+    }
+    
+    function drawCar2() {
+    ctx.beginPath();
+        ctx.fillStyle = "transparent";
+        ctx.fillRect(carPos2X, carPos2Y, car2Width, car2Height);
+        var img2 = document.getElementById("car2");
+        
+        ctx.drawImage(img2, carPos2X, carPos2Y, car2Width, car2Height);
+    }
+    
+    function drawSurrounding() {
+      ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        
+        ctx.beginPath();
+        ctx.moveTo(0, carPosY);
+       ctx.lineTo(canvasWidth/5*1, carPosY - 100);
+        ctx.lineTo(canvasWidth/5*1.3, carPosY - 50);
+        ctx.lineTo(canvasWidth/5*2, carPosY - 150);
+        ctx.lineTo(canvasWidth/5*3.3, carPosY + 10);
+        ctx.lineTo(canvasWidth/5*4.3, carPosY - 50);
+        ctx.lineTo(canvasWidth/5*5, carPosY + 50);
+        ctx.lineTo(canvasWidth, carPosY + carHeight);
+        ctx.lineTo(0, carPosY + carHeight);
+        ctx.closePath();
+        ctx.fillStyle = "green";
+        ctx.fill();
+        
+        ctx.fillStyle = "green";
+        ctx.fillRect(0, carInitY + carHeight + wheelRadius + 20, canvasWidth, carHeight);
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.lineWidth = 4;
+        ctx.fillStyle = "blue";
+        ctx.font = "24px Consolas";
+        ctx.fillText(author, 550, 590); //or fillText();
+        
+        ctx.fillStyle = "yellow";
+        ctx.beginPath();
+        ctx.arc(550, 60, 50, 0, 2 *Math.PI);
+        ctx.fill();
+        myLine(475, 35, 620, 100, 1, "yellow");
+        myLine(507, 9, 595, 130, 1, "yellow");
+        myLine(550, -10, 550, 140, 1, "yellow");
+        myLine(485, 105, 620, 35, 1, "yellow");
+        myLine(510, 130, 600, 10, 1, "yellow");
+        myLine(475, 70, 625, 75, 1, "yellow");
+        ctx.strokeStyle = "darkred";
+        ctx.beginPath();
+        ctx.arc(550, 60, 50, 0, 2 *Math.PI);
+        ctx.stroke();
+        //draw windmill
+        drawWindMillA();
+        //ctx.rotate();
+        drawWindMillStick(75, 120, 75, 350, 6, 10);
+        //ctx.translate(0, 50, 120, 150);
+        ctx.fill();
+        //second windmill
+        drawWindMillB();
+        drawWindMillStick(220, 150, 220, 300, 4, 7);
+        //third windmill
+        drawWindMillC();
+        drawWindMillStick(370, 110, 370, 350, 8, 14);
+       
+        //drawWindmills();
+    
+    }
+    
+    function drawRoad() {
+    ctx.fillStyle = "#4863A0";
+        ctx.fillRect(0, carInitY+ carHeight, canvasWidth, 3 * wheelRadius);
+        
+        ctx.beginPath();
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 10;
+        ctx.moveTo(0, carInitY + carHeight + wheelRadius + 10);
+        ctx.lineTo(canvas.width, carInitY + carHeight + wheelRadius + 10);
+        ctx.stroke(); 
+    }
+    
+    function drawWindMillStick(a, b, c, d, r, width) {
+    ctx.beginPath();
+    ctx.strokeStyle = "red";
+        ctx.lineWidth = width;
+        ctx.moveTo(a, b);
+        ctx.lineTo(c, d);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.fillStyle = "#F2BB66";
+        ctx.arc(a, b, r, 0, 2*Math.PI);
+        ctx.fill();
+        
+    }
+    function myLine(a, b, c, d, width, color) {
+    ctx.beginPath();
+    ctx.moveTo(a, b);
+    ctx.lineTo(c, d);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.stroke();
+    }
+    
+    function drawWindMillA(){
+        ctx.beginPath();
+        ctx.fillStyle = "#7E354D";
+        ctx.moveTo(75, 120);
+        ctx.lineTo(95, 145);
+        ctx.lineTo(110, 200);
+        ctx.lineTo(80, 150);
+        ctx.lineTo(75, 120);
+       ctx.lineTo(43, 125);
+       ctx.lineTo(-10, 110);
+        ctx.lineTo(44, 110);
+        ctx.lineTo(75, 120);
+        ctx.lineTo(85, 90);
+        ctx.lineTo(125, 48);
+        ctx.lineTo(95, 98);
+        ctx.lineTo(75, 120);
+        //ctx.lineTo();
+        ctx.fill();
+    }
+    
+    function drawWindMillB(){
+        ctx.beginPath();
+        ctx.fillStyle = "#7E354D";
+        ctx.moveTo(220, 150);
+        ctx.lineTo(235, 165);
+        ctx.lineTo(245, 200);
+        ctx.lineTo(225, 170);
+        ctx.lineTo(220, 150);
+        ctx.lineTo(200, 155);
+        ctx.lineTo(160, 145);
+        ctx.lineTo(200, 145);
+        ctx.lineTo(220, 150);
+        ctx.lineTo(228, 130);
+        ctx.lineTo(250, 100);
+        ctx.lineTo(235, 135);
+        ctx.lineTo(220, 150);
+        //ctx.lineTo();
+        ctx.fill();
+    }
+    
+    function drawWindMillC(){
+      //  ctx.rotate((carPosX -  carInitX) / wheelRadius );
+          ctx.beginPath();
+        ctx.fillStyle = "#7E354D";
+        ctx.moveTo(370, 110);
+        ctx.lineTo(390, 138);
+        ctx.lineTo(415, 200);
+        ctx.lineTo(380, 145);
+        ctx.lineTo(370, 110);
+        ctx.lineTo(335, 115);
+        ctx.lineTo(270, 100);
+        ctx.lineTo(335, 100);
+        ctx.lineTo(370, 110);
+        ctx.lineTo(380, 78);
+        ctx.lineTo(425, 25);
+        ctx.lineTo(395, 85);
+        ctx.lineTo(370, 110);
+
+        ctx.fill();
+        
+    }
+    
+    
+    function drawWindmills() 
+{
+	ctx.beginPath();
+    ctx.lineWidth=7;
+    ctx.strokeStyle="tan";
+    ctx.moveTo(75,300);
+    ctx.lineTo(75,120);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.lineWidth=5;
+    ctx.moveTo(220,270);
+    ctx.lineTo(220,150);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.lineWidth=9;
+    ctx.moveTo(370,320);
+    ctx.lineTo(370,110);
+    ctx.stroke();
+    drawAllWindmills();
+}
+
+function drawAllWindmills()
+{
+	//Left windmill    
+	ctx.translate(75,120);    
+    drawWindmill(0.8, rotateDeg1) ;
+    ctx.translate(-75,-120);	
+    //Center windmill
+	ctx.translate(220,150);
+    drawWindmill(0.6, rotateDeg2) ;
+    ctx.translate(-220,-150);
+	//Right windmill
+	ctx.translate(370,110);
+    drawWindmill(1, rotateDeg3) ;
+    ctx.translate(-370,-110);
+}
+
+
+    
+    
+</script>
+
+</body>
+</html>

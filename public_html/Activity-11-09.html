@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+  <title>Activity-11-09-Web Graphics::Canvas::Javascript</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Activity 11 09 2018 for GGC Web Tech">
+  <meta name="keywords" content="JavaScript, HTML, CSS, Web Design, JQuery, interactive canvas">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Elijah Kolawole">
+
+  <style type="text/css">
+
+      body{
+          background-color: 
+      }
+ 
+</style>
+  
+  
+</head>
+<body >
+    <canvas id="my_area" width="800" height="600" style="border: 1px solid blue; margin-left:200px; margin-top: 50px; background-color: pink;">
+        
+        
+        
+    </canvas>
+   <script>
+var canvas=document.getElementById("my_area");
+var ctx = canvas.getContext("2d");
+
+var truckInitX = 150;
+var truckInitY = 300;
+var truckPosX = truckInitX;
+var truckPosY = truckInitY;
+var truckWidth = 200;
+var truckHeight = 100;
+var wheelRadius = 25;
+var wheelOffset = 50;
+var moveDirection = "right";
+var moveSpeed = 10;
+var canvasWidth = canvas.width;
+var canvasHeight = canvas.height;
+
+setInterval(drawEverything,100);
+
+function drawEverything()
+{
+	ctx.fillStyle = canvas.style.backgroundColor;
+    ctx.fillRect(0,0,canvasWidth,canvasHeight);
+	drawRoad();
+    draw2Wheels();
+    drawBody();
+    moveTruck();
+	drawAnyCloud(150,100,0.5,30/180*Math.PI);
+    drawAnyCloud(450,200,0.3,90/180*Math.PI);
+    drawAnyCloud(650,70,0.7,-60/180*Math.PI);
+}
+
+function moveTruck()
+{
+	if(moveDirection === "right")
+    {
+    	if(truckPosX <= canvasWidth-truckWidth-moveSpeed)
+        {
+    		truckPosX += moveSpeed;
+        }    
+        else
+        {
+        	truckPosX = canvasWidth-truckWidth;
+            moveDirection = "left";
+        }
+    }
+    else
+    {
+    	if(truckPosX >= moveSpeed)
+        {
+    		truckPosX -= moveSpeed;
+        }
+        else
+        {
+        	truckPosX = 0;
+            moveDirection = "right";
+        }
+    }
+}
+
+function draw2Wheels()
+{
+	ctx.translate(truckPosX+wheelOffset,truckPosY+truckHeight);
+    drawWheel();
+   	ctx.translate(-(truckPosX+wheelOffset),-(truckPosY+truckHeight));
+    
+    ctx.translate(truckPosX+truckWidth-wheelOffset,truckPosY+truckHeight);
+    drawWheel();
+    ctx.translate(-(truckPosX+truckWidth-wheelOffset),-(truckPosY+truckHeight));
+}
+
+function drawWheel()
+{
+	ctx.rotate( (truckPosX-truckInitX)/wheelRadius);
+	ctx.beginPath();
+    ctx.lineWidth = 7;
+    ctx.arc(0,0,wheelRadius,0,2*Math.PI);
+    ctx.strokeStyle="black";
+    ctx.setLineDash([20,0]);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(-wheelRadius, 0);
+    ctx.lineTo(wheelRadius, 0);
+    ctx.stroke();
+    
+        ctx.beginPath();
+    ctx.moveTo(0, -wheelRadius);
+    ctx.lineTo(0, wheelRadius);
+    ctx.stroke();
+    ctx.rotate(-(truckPosX-truckInitX)/wheelRadius);
+}
+
+function drawBody()
+{
+	ctx.fillStyle="green";
+    ctx.fillRect(truckPosX,truckPosY,truckWidth,truckHeight);
+    ctx.strokeStyle="red";
+    ctx.lineWidth=5;
+    ctx.setLineDash([20,0]);
+    ctx.strokeRect(truckPosX,truckPosY,truckWidth,truckHeight);
+}
+
+function drawRoad()
+{
+	ctx.beginPath();
+    ctx.strokeStyle="blue";
+    ctx.lineWidth = 10;
+    ctx.setLineDash([20,5]);
+    ctx.moveTo(0,truckPosY+truckHeight+wheelRadius+10);
+    ctx.lineTo(canvasWidth,truckPosY+truckHeight+wheelRadius+10);
+    ctx.stroke();
+}
+
+function drawAnyCloud(x,y,s,angle)
+{
+	ctx.translate(x,y);
+	ctx.rotate(angle);
+	ctx.scale(s,s);
+	ctx.translate(-284,-88);
+	drawCloud();
+    ctx.translate(284,88);
+    ctx.scale(1/s,1/s);
+    ctx.rotate(-angle);
+    ctx.translate(-x,-y);
+}
+
+function drawCloud()
+{
+	ctx.beginPath();
+	ctx.moveTo(170,80);
+	ctx.bezierCurveTo(130,100,130,150,230,150);
+	ctx.bezierCurveTo(250,180,320,180,340,150);
+	ctx.bezierCurveTo(420,150,420,120,390,100);
+	ctx.bezierCurveTo(430,40,370,30,340,50);
+	ctx.bezierCurveTo(320,5,250,20,250,50);
+	ctx.bezierCurveTo(200,5,150,20,170,80);
+	ctx.closePath();
+	ctx.fillStyle="#8ED6FF";
+	ctx.fill();
+	ctx.strokeStyle="blue";
+	ctx.stroke();
+}
+
+
+</script>
+
+</body>
+</html>
+

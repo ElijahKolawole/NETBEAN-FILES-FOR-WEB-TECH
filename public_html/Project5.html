@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Project 5</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Elijah Kolawole">
+        <meta name="keyword" content="Project, HTML, Javascript, Canvas">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="description" content="A submission file for HTML 5 Project5  about canvas and HTML5">
+        
+        <style>
+            h1{
+                text-align: center;
+            }
+            canvas{
+              border: blue 0.5px solid;
+
+            }
+            body{
+               margin-left:200px;
+
+            }
+            li{
+             margin-bottom: 50px;
+
+            }
+            h3{
+                text-align: left;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <h1 >PROJECT 5</h1>
+        
+        <ol>
+            <li>
+                <h3> Canvas One</h3>
+                <canvas id="canvasOne" width="800" height="600">
+                    
+                </canvas>
+                
+            </li>
+             <li>
+                 <h3> Canvas Two</h3>
+                <canvas id="canvasTwo" width="800" height="600">
+                    
+                </canvas>
+                
+            </li>
+             <li>
+                  <h3> Canvas Three</h3>
+                <canvas id="canvasThree" width="800" height="600">
+                    
+                </canvas>
+                
+            </li>
+             <li>
+                 <h3> Canvas Four</h3>
+                <canvas id="canvasFour" width="800" height="600">
+                    
+                </canvas>
+                
+            </li>
+             <li>
+                  <h3> Canvas Five</h3>
+                <canvas id="canasFive" width="800" height="600">
+                    
+                </canvas>
+                
+            </li>
+            
+        </ol>
+        
+        
+        <script>
+            //set canvases and their contexts
+            
+            var canvasOne = document.getElementById("canvasOne");
+            var ctxOne = canvasOne.getContext("2d");
+            var canvasTwo = document.getElementById("canvasTwo");
+             var ctxTwo = canvasTwo.getContext("2d");
+            var canvasThree = document.getElementById("canvasThree");
+             var ctxThree = canvasThree.getContext("2d");
+            var canvasFour = document.getElementById("canvasFour");
+             var ctxFour = canvasFour.getContext("2d");
+            var canvasFive = document.getElementById("canasFive");
+             var ctxFive = canvasFive.getContext("2d");
+             
+             //draw all consoles at once
+             drawEverything();
+             
+             //draw functiosn for cnavases accordingly.
+             
+             function drawCanvasOne(){
+              
+              var black = "#222222";
+              drawCurvedRectangle(canvasOne, 0, 0, 0, 0, 50, black);
+             }
+               function drawCanvasTwo(){                             
+              var pink = "#FFC0CB";
+              canvasTwo.width = 600;
+              drawCurvedRectangle(canvasTwo, 0, 0, 0, 0, 50, pink);
+             }
+               function drawCanvasThree(){
+              var cyan = "#00FFFF";
+              canvasThree.width = 600;
+              drawCurvedRectangle(canvasThree, 0, 0, 0, 0, 50, cyan);
+             }
+               function drawCanvasFour(){
+                drawCurvedRectangle(canvasFive, 0, 0, 0, 0, 500);
+
+             }
+               function drawCanvasFive(){
+             }
+             
+             function drawEverything(){
+                 drawCanvasOne();
+                 drawCanvasTwo();
+                 drawCanvasThree();
+                 drawCanvasFour();
+                 drawCanvasFive();
+                 
+             }
+            
+                 
+            function drawCurvedRectangle(canvas, sx, sy, ex, ey, radius, color){
+                ctx = canvas.getContext("2d");
+                ctx.beginPath();
+               
+              ctx.moveTo(radius, 0);
+        
+              ctx.arcTo(sx + canvas.width, sy + 0, ex + canvas.width, ey + radius, radius);
+              
+
+              ctx.arcTo(sx + canvas.width, sy + canvas.height, ex + canvas.width - radius, ey + canvas.height, radius);
+             
+              ctx.arcTo(sx + 0, sy + canvas.height, ex + 0, ey + canvas.height- radius, radius - 35);
+              ctx.arcTo(sx + 0, sy + 0, sy + radius, ey + 0, radius - 35);
+              ctx.fillStyle = color;
+              ctx.fill();
+
+
+
+
+                
+                
+                //ctx.stroke();
+            }
+       
+            
+        </script>
+        
+        
+    </body>
+</html>

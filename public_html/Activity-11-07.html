@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+  <title>Activity-11-07-Web Graphics::Canvas::Javascript</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Activity 11 07 2018 for GGC Web Tech">
+  <meta name="keywords" content="JavaScript, HTML, CSS, Web Design, JQuery">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Elijah Kolawole">
+
+  <style type="text/css">
+
+       
+   #my_area{
+       background-color: lightblue;
+      border: 1px blue solid;
+      margin-left: 200px;
+  }
+  
+   #ggc{
+      display: none;
+      width: 500px;
+      height: 500px;
+  }
+</style>
+  
+  
+</head>
+<body >
+
+    <canvas id = "my_area" width=500 height=500  >Your browser does not support canvas</canvas>
+    <img id="ggc" width="200" height="100" alt="replacement image for the van" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzhdRzo_9fv48Zfn3XRBKKdwsx6HzNUhRFXoVl1WSxC7qXV2DQVg" />
+    <img id="result"  src = "" width=200 height=200 alt="an image version of the canvas">
+    
+    <hr>
+    
+    <a href= "#" download id="save" onclick="saveMe();" >Download Me</a>
+
+
+  <script>
+  	var canvas = document.getElementById("my_area");
+  	var ctx = canvas.getContext("2d");
+    
+
+        //cloud
+        ctx.beginPath();
+        ctx.moveTo(170, 80);
+        ctx.bezierCurveTo(130,100, 130, 150, 230, 150);
+        ctx.bezierCurveTo(250,180, 320, 180, 340, 150);
+        ctx.bezierCurveTo(420,150, 420, 120, 390, 100);
+        ctx.bezierCurveTo(430,40, 370, 30, 340, 50);
+        ctx.bezierCurveTo(320,5, 250, 20, 250, 50);
+        ctx.bezierCurveTo(200,5, 150, 20, 170, 80);
+        ctx.closePath();
+        ctx.fillStyle = "#8eD6FF";
+        ctx.fill();
+        ctx.strokeStyle = "blue";
+        ctx.stroke();
+
+  	//wheels of our van
+        ctx.beginPath();
+        ctx.arc(200,300,25,0,2*Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        //second tire
+        ctx.beginPath();
+        ctx.arc(300,300,25,0,2*Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        
+        //train body
+        ctx.fillStyle= "green";
+        ctx.fillRect(150,200,200,100);
+        ctx.strokeStyle="red";
+        ctx.lineWidth=5;
+        ctx.strokeRect(150, 200, 200, 100);
+        var ggc_image = document.getElementById("ggc");
+        //ctx.drawImage(ggc_image, 150, 200, 200, 100);
+        
+         //road way
+         ctx.beginPath();
+         ctx.strokeStyle = "blue";
+         ctx.setLineDash([20, 5]);
+         ctx.lineWidth=10;
+         ctx.moveTo(0, 330);
+         ctx.lineTo(500, 330);
+         ctx.stroke();
+         
+         var dataURL = canvas.toDataURL();
+         document.getElementById("result").src = dataURL;
+         
+         function saveMe(){
+             document.getElementById("save").download="ggc_image.png";
+             document.getElementById("save").href = document.getElementById("my_area").toDataURL("image/png").replace("image/png", "data:application/octet-stream");
+         }
+         
+         
+  </script>
+
+
+</body>
+</html>
+
