@@ -92,7 +92,11 @@ and open the template in the editor.
              var ctxFour = canvasFour.getContext("2d");
             var canvasFive = document.getElementById("canasFive");
              var ctxFive = canvasFive.getContext("2d");
-             
+            var black = "#222222";
+            var pink = "#FFC0CB";
+            var white = "#FFFFFF";
+             var lineX, lineY;
+
              //draw all consoles at once
              drawEverything();
              
@@ -100,11 +104,11 @@ and open the template in the editor.
              
              function drawCanvasOne(){
               
-              var black = "#222222";
+              
               drawCurvedRectangle(canvasOne, 0, 0, 0, 0, 50, black);
+              drawCat();
              }
                function drawCanvasTwo(){                             
-              var pink = "#FFC0CB";
               canvasTwo.width = 600;
               drawCurvedRectangle(canvasTwo, 0, 0, 0, 0, 50, pink);
              }
@@ -152,6 +156,62 @@ and open the template in the editor.
                 
                 
                 //ctx.stroke();
+            }
+            
+            function drawCat(){
+              lineX = 60;
+              lineY = 30;
+                ctxOne.beginPath();
+                ctxOne.moveTo( lineX + 50, lineY + 10);
+                ctxOne.lineTo( lineX + 90, lineY + 60);
+                ctxOne.lineTo(lineX + 85, lineY + 69);
+                ctxOne.lineTo( lineX + 93, lineY + 79);
+                ctxOne.lineTo( lineX + 200, lineY + 130);
+                ctxOne.lineTo( lineX + 220, lineY + 190);
+                ctxOne.lineTo( lineX + 350, lineY + 184);
+                ctxOne.lineTo( lineX + 390, lineY + 170);
+                ctxOne.lineTo( lineX + 420, lineY + 150);
+                ctxOne.lineTo( lineX + 422, lineY + 148);
+                ctxOne.lineTo( lineX + 424, lineY + 146);
+                ctxOne.lineTo( lineX + 426, lineY + 144);
+                ctxOne.lineTo( lineX + 428, lineY + 143);
+                ctxOne.lineTo( lineX + 430, lineY + 142);
+                ctxOne.lineTo( lineX +  432, lineY + 141);
+                ctxOne.lineTo( lineX + 436, lineY + 140);
+                ctxOne.lineTo( lineX + 496, lineY + 132);
+                ctxOne.lineTo( lineX + 526, lineY + 180);
+                ctxOne.lineTo( lineX + 539, lineY + 189);
+                ctxOne.lineTo( lineX + 492, lineY + 104);
+                ctxOne.lineTo( lineX + 492, lineY + 84);
+                ctxOne.lineTo(lineX + 516, lineY + 64);
+                ctxOne.lineTo(lineX + 513, lineY + 54);
+                ctxOne.lineTo(lineX + 520, lineY + 30);
+                ctxOne.lineTo(lineX + 532, lineY + 54);
+                ctxOne.lineTo(lineX + 529, lineY + 59);
+                ctxOne.lineTo(lineX + 560, lineY + 51);
+                ctxOne.lineTo(lineX + 595, lineY + 57);
+                ctxOne.lineTo(lineX + 622, lineY + 79);
+                ctxOne.lineTo(lineX + 625, lineY + 64);
+                ctxOne.lineTo(lineX + 645, lineY + 48);
+                ctxOne.lineTo(lineX + 648, lineY + 64);
+                ctxOne.lineTo(lineX + 633, lineY + 89);
+                ctxOne.lineTo(lineX + 643, lineY + 100);
+                ctxOne.lineTo(lineX + 645, lineY + 122);
+                ctxOne.lineTo(lineX + 647, lineY + 128);
+                ctxOne.lineTo(lineX + 645, lineY + 135);
+                ctxOne.lineTo(lineX + 644, lineY + 140);
+                ctxOne.lineTo(lineX + 643, lineY + 145);
+                ctxOne.lineTo(lineX + 611, lineY + 159);
+                ctxOne.lineTo(lineX + 595, lineY + 159);
+                ctxOne.lineTo(lineX + 599, lineY + 220);
+                ctxOne.lineTo(lineX + 599, lineY + 220);
+
+
+                ctxOne.fillStyle = pink;
+                ctxOne.strokeStyle = white;
+                //ctxOne.closePath();
+                ctxOne.stroke();
+                //txOne.fill();
             }
        
             
