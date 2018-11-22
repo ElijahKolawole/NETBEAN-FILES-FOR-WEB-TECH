@@ -19,7 +19,7 @@ and open the template in the editor.
                 text-align: center;
             }
             canvas{
-              border: blue 0.5px solid;
+            //  border: blue 0.5px solid;
 
             }
             body{
@@ -54,27 +54,7 @@ and open the template in the editor.
                 </canvas>
                 
             </li>
-             <li>
-                  <h3> Canvas Three</h3>
-                <canvas id="canvasThree" width="800" height="600">
-                    
-                </canvas>
-                
-            </li>
-             <li>
-                 <h3> Canvas Four</h3>
-                <canvas id="canvasFour" width="800" height="600">
-                    
-                </canvas>
-                
-            </li>
-             <li>
-                  <h3> Canvas Five</h3>
-                <canvas id="canasFive" width="800" height="600">
-                    
-                </canvas>
-                
-            </li>
+            
             
         </ol>
         
@@ -86,16 +66,17 @@ and open the template in the editor.
             var ctxOne = canvasOne.getContext("2d");
             var canvasTwo = document.getElementById("canvasTwo");
              var ctxTwo = canvasTwo.getContext("2d");
-            var canvasThree = document.getElementById("canvasThree");
-             var ctxThree = canvasThree.getContext("2d");
-            var canvasFour = document.getElementById("canvasFour");
-             var ctxFour = canvasFour.getContext("2d");
-            var canvasFive = document.getElementById("canasFive");
-             var ctxFive = canvasFive.getContext("2d");
+            
             var black = "#222222";
             var pink = "#FFC0CB";
             var white = "#FFFFFF";
+            var whiteB = "#DDDDDD";
+            var blue = "#00AAFF";
              var lineX, lineY;
+             var circleX, circleY;
+             var radius;
+             var lineWidth;
+             var dotX, dotY, dotWidth, dotHeight;
 
              //draw all consoles at once
              drawEverything();
@@ -110,26 +91,54 @@ and open the template in the editor.
              }
                function drawCanvasTwo(){                             
               canvasTwo.width = 600;
-              drawCurvedRectangle(canvasTwo, 0, 0, 0, 0, 50, pink);
-             }
-               function drawCanvasThree(){
-              var cyan = "#00FFFF";
-              canvasThree.width = 600;
-              drawCurvedRectangle(canvasThree, 0, 0, 0, 0, 50, cyan);
-             }
-               function drawCanvasFour(){
-                drawCurvedRectangle(canvasFive, 0, 0, 0, 0, 500);
-
-             }
-               function drawCanvasFive(){
-             }
+              canvasTwo.height = 600;
+              radius = (canvasTwo.width / 2 ) - 10;
+            
+              circleX = (canvasTwo.width / 2);
+              circleY = (canvasTwo.height/ 2 );
+              lineWidth = 20;
+              drawCurvedRectangle(canvasTwo, 0, 0, 0, 0, 50, black); //background
+            
+             drawCircle1(canvasTwo, circleX, circleY, radius, lineWidth);
+              radius = (canvasTwo.width / 2 ) - 19.5;
+              circleX = (canvasTwo.width / 2);
+              circleY = (canvasTwo.height/ 2 );
+              drawCircle2(canvasTwo, circleX, circleY, radius);
+              radius = (canvasTwo.width / 2 ) - 19.5;
+            
+              circleX = (canvasTwo.width / 2);
+              circleY = (canvasTwo.height / 2 );
+              drawCircle3(canvasTwo, circleX, circleY, radius);
+              
+              radius = (canvasTwo.width / 2 ) - 190;
+              lineWidth = 3;
+              circleX = (canvasTwo.width / 2);
+              circleY = (canvasTwo.height / 2 ) + 90;
+             drawCircle4(canvasTwo, circleX, circleY, radius, lineWidth);
+              
+              
+              radius = (canvasTwo.width / 2 ) - 215;
+              lineWidth = 3;
+              circleX = (canvasTwo.width / 2);
+              circleY = (canvasTwo.height / 2 ) - 70;
+            drawCircle5(canvasTwo, circleX, circleY, radius, lineWidth);
              
+              dotX = (canvasTwo.width) / 2 - 22;
+              dotY = (canvasTwo.height) / 2 - 80;
+              radius = 6;
+             drawTwoDots(canvasTwo, dotX, dotY, radius);      
+             
+        
+              dotX = (canvasTwo.width) / 2;
+              dotY = (canvasTwo.height) / 2 + 60;
+              radius = 6;
+             drawThreeDots(canvasTwo, dotX, dotY, radius);
+    }
+            
              function drawEverything(){
                  drawCanvasOne();
                  drawCanvasTwo();
-                 drawCanvasThree();
-                 drawCanvasFour();
-                 drawCanvasFive();
+                
                  
              }
             
@@ -145,8 +154,8 @@ and open the template in the editor.
 
               ctx.arcTo(sx + canvas.width, sy + canvas.height, ex + canvas.width - radius, ey + canvas.height, radius);
              
-              ctx.arcTo(sx + 0, sy + canvas.height, ex + 0, ey + canvas.height- radius, radius - 35);
-              ctx.arcTo(sx + 0, sy + 0, sy + radius, ey + 0, radius - 35);
+              ctx.arcTo(sx + 0, sy + canvas.height, ex + 0, ey + canvas.height- radius, radius - 30);
+              ctx.arcTo(sx + 0, sy + 0, sy + radius, ey + 0, radius - 40);
               ctx.fillStyle = color;
               ctx.fill();
 
@@ -212,6 +221,92 @@ and open the template in the editor.
                 //ctxOne.closePath();
                 ctxOne.stroke();
                 //txOne.fill();
+            }
+            
+            function drawCircle1(canvas, circleX, circleY, radius, lineWidth){
+               
+               
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.arc(circleX,circleY,radius, 0, 2 * Math.PI);
+                ctx.strokeStyle = whiteB;
+                ctx.lineWidth = lineWidth;
+                ctx.stroke();
+            }
+            
+              function drawCircle2(canvas, circleX, circleY, radius){
+               
+               
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.arc(circleX,circleY,radius,  (5 * Math.PI) / 6, ( Math.PI) / 6);
+                //ctx.arc(circleX,circleY,radius,  (1 * Math.PI) , 0);
+        
+                ctx.fillStyle = blue;
+               
+                ctx.fill();
+            }
+            
+               function drawCircle3(canvas, circleX, circleY, radius){
+               
+               
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.arc(circleX,circleY,radius,  (8 * Math.PI) / 9, ( Math.PI) / 9, true);
+                //ctx.arc(circleX,circleY,radius,  (1 * Math.PI) , 0);
+        
+                ctx.fillStyle = white;
+               
+                ctx.fill();
+            }
+            
+            
+            
+            function drawCircle4(canvas, circleX, circleY, radius, lineWidth){
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.arc(circleX, circleY, radius, 0 ,  2 * Math.PI);
+                ctx.strokeStyle = whiteB;
+                ctx.lineWidth = lineWidth;
+                fillStyle = white;
+                ctx.fill();
+                ctx.stroke();
+            
+    }
+       
+            function drawCircle5(canvas, circleX, circleY, radius, lineWidth){
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.arc(circleX, circleY, radius, 0 ,  2 * Math.PI);
+                ctx.strokeStyle = whiteB;
+                ctx.lineWidth = lineWidth;
+                fillStyle = white;
+                ctx.fill();
+                ctx.stroke();
+                
+            }
+            
+            function drawThreeDots(canvas, dotX, dotY, radius){
+               
+                var ctx = canvas.getContext("2d");
+                 ctx.beginPath();
+                ctx.arc(dotX, dotY, radius, 0,  2 * Math.PI );
+                 ctx.arc(dotX, dotY + 30, radius, 0,  2 * Math.PI );
+                 ctx.arc(dotX, dotY + 60, radius, 0,  2 * Math.PI );
+                ctx.fillStyle = black;
+                ctx.fill();
+                
+            }
+            
+             function drawTwoDots(canvas, dotX, dotY, radius){
+               
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.arc(dotX, dotY, radius, 0,  2 * Math.PI );
+                ctx.arc(dotX + 40, dotY , radius, 0,  2 * Math.PI );
+                ctx.fillStyle = black;
+                ctx.fill();
+                
             }
        
             
